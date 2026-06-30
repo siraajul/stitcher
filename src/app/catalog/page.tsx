@@ -6,9 +6,12 @@ export default async function CatalogPage() {
   const catalogs = await getCatalogs();
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="w-full px-6 pt-8 pb-4 max-w-7xl mx-auto">
-        <h1 className="text-3xl font-black text-gray-900 tracking-tight">Catalogs</h1>
+    <div className="min-h-screen bg-zinc-50 flex flex-col">
+      <div className="w-full px-6 pt-8 pb-12 md:-mt-24 md:pt-36 bg-gradient-to-b from-rose-950 via-rose-900 to-zinc-50">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight">Catalogs</h1>
+          <p className="text-rose-200 mt-2 font-medium">Browse our exclusive collections</p>
+        </div>
       </div>
 
       <main className="flex-1 p-6 max-w-7xl mx-auto w-full">
@@ -17,7 +20,7 @@ export default async function CatalogPage() {
             <p className="text-xl">No catalogs available right now.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
             {catalogs.map((catalog) => (
               <Link 
                 key={catalog.id} 
