@@ -84,7 +84,8 @@ export async function placeOrder(data: {
           `*Quantity:* ${data.orderedMeters} meters\n` +
           `*Total Price:* ৳${result.order.totalPrice}`;
         
-        await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        // Fire and forget, don't await to avoid blocking the UI on slow network
+        fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -94,9 +95,10 @@ export async function placeOrder(data: {
             text: message,
             parse_mode: 'Markdown',
           }),
-        });
+          signal: AbortSignal.timeout(5000), // 5 seconds max
+        }).catch(err => console.error('Failed to send telegram notification:', err));
       } catch (err) {
-        console.error('Failed to send telegram notification:', err);
+        console.error('Failed to format telegram notification:', err);
       }
     }
 
