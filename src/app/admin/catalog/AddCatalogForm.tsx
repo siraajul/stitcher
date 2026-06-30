@@ -29,7 +29,7 @@ export default function AddCatalogForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 mb-8 relative overflow-hidden">
+    <form onSubmit={handleSubmit} className="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100 mb-8 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-1 h-full bg-zinc-800"></div>
       
       <div className="flex items-center gap-4 mb-8">
@@ -103,7 +103,7 @@ export default function AddCatalogForm() {
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full md:w-auto bg-zinc-900 hover:bg-black text-white font-bold py-3.5 px-10 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none"
+            className="w-full md:w-auto bg-zinc-900 hover:bg-black text-white font-bold py-3.5 px-10 mt-4 md:mt-0 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none"
           >
             {loading ? 'Adding...' : 'Create Catalog'}
           </button>

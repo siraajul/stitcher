@@ -7,7 +7,7 @@ export default async function AdminCatalogPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6 text-gray-900">Manage Catalogs</h1>
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-900">Manage Catalogs</h1>
       
       <AddCatalogForm />
 

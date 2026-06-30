@@ -24,7 +24,7 @@ export default async function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 flex flex-col">
-      <div className="w-full px-4 sm:px-6 pt-8 pb-12 md:-mt-24 md:pt-36 bg-gradient-to-b from-rose-950 via-rose-900 to-zinc-50">
+      <div className="w-full px-4 sm:px-6 pt-24 pb-12 md:-mt-24 md:pt-36 bg-gradient-to-b from-rose-950 via-rose-900 to-zinc-50">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight">My Orders</h1>
         </div>
