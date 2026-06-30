@@ -156,7 +156,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                   max={dress.stockMeters}
                   value={meters}
                   onChange={(e) => setMeters(Number(e.target.value))}
-                  className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-600 focus:bg-white transition-all shadow-sm"
+                  className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-600 focus:bg-white transition-all shadow-sm"
                   placeholder="How many meters?"
                 />
               </div>
@@ -170,7 +170,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition-all shadow-sm"
+                    className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition-all shadow-sm"
                     placeholder="John Doe"
                   />
                 </div>
@@ -183,7 +183,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition-all shadow-sm"
+                    className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition-all shadow-sm"
                     placeholder="017..."
                   />
                 </div>
@@ -224,7 +224,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                     required={paymentMode === 'MFS'}
                     value={mfsSenderNumber}
                     onChange={(e) => setMfsSenderNumber(e.target.value)}
-                    className="w-full border border-amber-200 bg-amber-50 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all shadow-sm"
+                    className="w-full border border-amber-200 bg-amber-50 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder:text-amber-700/60 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all shadow-sm"
                     placeholder="Number you sent from"
                   />
                   <p className="text-[10px] text-amber-600 mt-1 font-medium leading-tight">Send money to our official number and enter your sender number.</p>

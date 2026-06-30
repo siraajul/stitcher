@@ -110,7 +110,7 @@ export default function StockRequestModal({ dress, onClose }: Readonly<{ dress: 
                       required
                       value={formData.customerName}
                       onChange={e => setFormData({...formData, customerName: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 outline-none transition-all"
                       placeholder="Enter your name"
                     />
                   </div>
@@ -123,7 +123,7 @@ export default function StockRequestModal({ dress, onClose }: Readonly<{ dress: 
                       required
                       value={formData.phoneNumber}
                       onChange={e => setFormData({...formData, phoneNumber: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 outline-none transition-all"
                       placeholder="01XXXXXXXXX"
                     />
                   </div>
@@ -138,7 +138,7 @@ export default function StockRequestModal({ dress, onClose }: Readonly<{ dress: 
                       step="0.1"
                       value={formData.requestedMeters}
                       onChange={e => setFormData({...formData, requestedMeters: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 outline-none transition-all"
                       placeholder="How many meters do you need?"
                     />
                   </div>
