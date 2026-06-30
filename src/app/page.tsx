@@ -37,7 +37,7 @@ export default async function Home() {
             <h3 className="font-bold text-gray-900 mb-0.5 md:mb-1 text-sm md:text-base leading-tight">Live Inventory</h3>
             <p className="text-xs md:text-sm text-gray-500 leading-tight max-w-[12rem]">See how many meters are in stock.</p>
           </div>
-          <div className="flex flex-col items-center col-span-2 md:col-span-1 mt-2 md:mt-0">
+          <div className="flex flex-col items-center col-span-1 mt-2 md:mt-0">
             <div className="mb-3 md:mb-4 bg-white p-4 rounded-full text-rose-700 shadow-xl shadow-rose-200/40 border border-rose-100 ring-4 ring-rose-50">
               <Zap size={28} />
             </div>

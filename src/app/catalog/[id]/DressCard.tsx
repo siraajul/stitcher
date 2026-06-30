@@ -87,7 +87,7 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
           </div>
           
           <div className="mt-auto pt-2 md:pt-4 border-t border-gray-100">
-            <div className="flex justify-between md:justify-start md:gap-6">
+            <div className="flex gap-4 md:gap-6">
               <div>
                 <p className="text-[9px] sm:text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-0.5 md:mb-1">Stock</p>
                 <p className={`text-sm sm:text-base md:text-xl font-bold leading-none ${stockTextColorClass}`}>
@@ -96,8 +96,8 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
               </div>
               {dress.totalMetersSold > 0 && (
                 <div>
-                  <p className="text-[9px] sm:text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-0.5 md:mb-1 text-right md:text-left">Sold</p>
-                  <p className="text-sm sm:text-base md:text-xl font-bold leading-none text-black text-right md:text-left">
+                  <p className="text-[9px] sm:text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-0.5 md:mb-1">Sold</p>
+                  <p className="text-sm sm:text-base md:text-xl font-bold leading-none text-black">
                     {dress.totalMetersSold}<span className="text-[10px] sm:text-[11px] md:text-xs font-normal text-gray-500 ml-0.5 md:ml-1">m</span>
                   </p>
                 </div>
