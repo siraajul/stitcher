@@ -22,7 +22,7 @@ export default async function Home() {
           <SearchForm />
         </div>
 
-        <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 md:gap-8 text-center max-w-4xl mx-auto px-4 md:px-0 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 ease-out fill-mode-both">
+        <div className="mt-8 md:mt-12 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-4 md:gap-8 text-center max-w-4xl mx-auto px-4 md:px-0 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 ease-out fill-mode-both">
           <div className="flex flex-col items-center">
             <div className="mb-3 md:mb-4 bg-white p-4 rounded-full text-rose-700 shadow-xl shadow-rose-200/40 border border-rose-100 ring-4 ring-rose-50">
               <Search size={28} />
@@ -37,7 +37,7 @@ export default async function Home() {
             <h3 className="font-bold text-gray-900 mb-0.5 md:mb-1 text-sm md:text-base leading-tight">Live Inventory</h3>
             <p className="text-xs md:text-sm text-gray-500 leading-tight max-w-[12rem]">See how many meters are in stock.</p>
           </div>
-          <div className="flex flex-col items-center col-span-1 mt-2 md:mt-0">
+          <div className="flex flex-col items-center col-span-2 sm:col-span-1 mt-2 md:mt-0">
             <div className="mb-3 md:mb-4 bg-white p-4 rounded-full text-rose-700 shadow-xl shadow-rose-200/40 border border-rose-100 ring-4 ring-rose-50">
               <Zap size={28} />
             </div>
