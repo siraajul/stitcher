@@ -1,0 +1,247 @@
+'use client';
+
+import { useState } from 'react';
+import { placeOrder } from '@/app/actions/order';
+import { X, CheckCircle2, Copy, Image as ImageIcon } from 'lucide-react';
+import Image from 'next/image';
+
+interface OrderModalProps {
+  dress: any;
+  onClose: () => void;
+}
+
+export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>) {
+  const [meters, setMeters] = useState<number | ''>('');
+  const [customerName, setCustomerName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [orderId, setOrderId] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [address, setAddress] = useState('');
+  const [paymentMode, setPaymentMode] = useState('COD');
+  const [mfsSenderNumber, setMfsSenderNumber] = useState('');
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (!meters || meters <= 0) return;
+    if (meters > dress.stockMeters) {
+      setError(`Cannot order more than ${dress.stockMeters} meters.`);
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    const res = await placeOrder({
+      dressId: dress.id,
+      customerName,
+      phoneNumber: phone,
+      address,
+      paymentMode,
+      mfsSenderNumber: paymentMode === 'MFS' ? mfsSenderNumber : undefined,
+      orderedMeters: Number(meters),
+    });
+
+    if (res.success && res.order) {
+      setOrderId(res.order.id);
+      setSuccess(true);
+    } else {
+      setError(res.error || 'Failed to place order');
+    }
+    setLoading(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(orderId);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+          <h3 className="text-xl font-bold text-gray-900">
+            {success ? 'Order Receipt' : `Order ${dress.name}`}
+          </h3>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-200">
+            <X size={20} />
+          </button>
+        </div>
+        
+        <div className="p-6">
+          {success ? (
+            <div className="text-center py-4">
+              <CheckCircle2 size={64} className="mx-auto mb-4 text-emerald-500" />
+              <h4 className="text-2xl font-bold text-gray-900 mb-2">Order Pending</h4>
+              <p className="text-gray-500 mb-8">Your stock has been reserved. Our admin will call you to verify and approve the order.</p>
+              
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-8 text-left relative">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Order Reference ID</p>
+                <p className="text-lg font-mono text-gray-900 break-all pr-10">{orderId}</p>
+                <button 
+                  onClick={handleCopy}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg transition-colors"
+                  title="Copy Order ID"
+                >
+                  {copied ? <CheckCircle2 size={20} className="text-emerald-500" /> : <Copy size={20} />}
+                </button>
+              </div>
+
+              <p className="text-sm text-gray-500 mb-6">
+                Please save this reference ID. You may be asked for it when you call us to finalize your purchase.
+              </p>
+
+              <button 
+                onClick={onClose}
+                className="w-full bg-zinc-900 hover:bg-black text-white font-bold py-3.5 rounded-xl transition-colors shadow-md"
+              >
+                Done
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-3.5">
+              <div className="bg-gray-50 p-3 border border-gray-200 flex justify-between items-center mb-1 rounded-xl">
+                <div className="flex items-center gap-2">
+                  {dress.imageUrl ? (
+                    <div className="relative w-10 h-10 border border-gray-200 rounded-lg overflow-hidden">
+                      <Image src={dress.imageUrl} alt={dress.name} fill className="object-cover" />
+                    </div>
+                  ) : (
+                    <div className="w-10 h-10 bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center text-gray-400">
+                      <ImageIcon size={16} />
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-gray-500 font-bold text-[10px] uppercase block">Available</span>
+                    <span className="text-black font-bold text-base leading-none">{dress.stockMeters}m</span>
+                  </div>
+                </div>
+                
+                <div className="text-right">
+                  <span className="text-gray-500 font-bold text-[10px] uppercase block">Price</span>
+                  <span className="text-black font-bold text-base leading-none">৳{Number(dress.pricePerMeter).toFixed(2)}/m</span>
+                </div>
+              </div>
+
+              {/* Total Price Calculator Box */}
+              <div className="bg-gray-100 p-3 border border-gray-200 rounded-xl flex justify-between items-center">
+                <span className="text-gray-600 font-bold uppercase text-[10px]">Total Price:</span>
+                <span className="text-xl font-black text-black">
+                  ৳{((Number(meters) || 0) * dress.pricePerMeter).toFixed(2)}
+                </span>
+              </div>
+
+              <div>
+                <label htmlFor="meters" className="block text-xs font-semibold text-gray-700 mb-1">Quantity (Meters)</label>
+                <input 
+                  id="meters"
+                  type="number" 
+                  required
+                  min="0.1"
+                  step="0.1"
+                  max={dress.stockMeters}
+                  value={meters}
+                  onChange={(e) => setMeters(Number(e.target.value))}
+                  className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none"
+                  placeholder="How many meters?"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="customerName" className="block text-xs font-semibold text-gray-700 mb-1">Your Name</label>
+                  <input 
+                    id="customerName"
+                    type="text" 
+                    required
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-xs font-semibold text-gray-700 mb-1">Phone</label>
+                  <input 
+                    id="phone"
+                    type="tel" 
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none"
+                    placeholder="017..."
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="address" className="block text-xs font-semibold text-gray-700 mb-1">Delivery Address</label>
+                <textarea 
+                  id="address"
+                  required
+                  rows={2}
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none resize-none"
+                  placeholder="Full address"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="paymentMode" className="block text-xs font-semibold text-gray-700 mb-1">Payment Method</label>
+                <select 
+                  id="paymentMode"
+                  value={paymentMode}
+                  onChange={(e) => setPaymentMode(e.target.value)}
+                  className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none bg-white"
+                >
+                  <option value="COD">Cash on Delivery (COD)</option>
+                  <option value="MFS">bKash / Nagad / Others (MFS)</option>
+                </select>
+              </div>
+
+              {paymentMode === 'MFS' && (
+                <div className="animate-in fade-in slide-in-from-top-2 duration-200">
+                  <label htmlFor="mfsSenderNumber" className="block text-xs font-semibold text-gray-700 mb-1">Sender Number (MFS)</label>
+                  <input 
+                    id="mfsSenderNumber"
+                    type="tel" 
+                    required={paymentMode === 'MFS'}
+                    value={mfsSenderNumber}
+                    onChange={(e) => setMfsSenderNumber(e.target.value)}
+                    className="w-full border-2 border-amber-200 bg-amber-50 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-amber-400 transition-colors focus:outline-none"
+                    placeholder="Number you sent from"
+                  />
+                  <p className="text-[10px] text-amber-600 mt-1 font-medium leading-tight">Send money to our official number and enter your sender number.</p>
+                </div>
+              )}
+
+              {error && <p className="text-red-600 text-xs font-medium bg-red-50 border border-red-100 p-2 rounded-lg">{error}</p>}
+
+              <div className="pt-2 flex gap-3">
+                <button 
+                  type="button"
+                  onClick={onClose}
+                  className="flex-1 bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-800 font-bold py-2.5 rounded-lg transition-colors text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                type="submit"
+                disabled={loading || Number(meters) > dress.stockMeters}
+                className="flex-1 bg-black text-white px-3 py-2.5 font-bold uppercase tracking-wider text-xs hover:bg-gray-800 disabled:bg-gray-300 transition-colors rounded-lg"
+              >
+                {loading ? 'Processing...' : 'Confirm'}
+              </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
