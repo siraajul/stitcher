@@ -54,7 +54,7 @@ export default async function TrackOrderDetailsPage({ params }: Readonly<{ param
 
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mb-6">
           {/* Header */}
-          <div className={`${statusInfo.bg} ${statusInfo.border} border-b p-6 text-center`}>
+          <div className={`${statusInfo.bg} ${statusInfo.border} border-b p-4 sm:p-6 text-center`}>
             <div className={`w-16 h-16 mx-auto rounded-2xl bg-white shadow-sm flex items-center justify-center mb-4 ${statusInfo.color}`}>
               <StatusIcon size={32} />
             </div>
@@ -64,11 +64,11 @@ export default async function TrackOrderDetailsPage({ params }: Readonly<{ param
             </p>
           </div>
 
-          <div className="p-6 space-y-8">
+          <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
             {/* Customer Details Snapshot */}
             <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
               <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Delivery Information</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
                 <div>
                   <p className="text-xs text-gray-500 mb-0.5">Name</p>
                   <p className="font-semibold text-sm text-gray-900 truncate">{order.customerName}</p>
@@ -86,7 +86,7 @@ export default async function TrackOrderDetailsPage({ params }: Readonly<{ param
               <div className="flex items-center gap-4 border border-gray-100 rounded-2xl p-3">
                 {order.dress.imageUrl ? (
                   <div className="relative w-16 h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
-                    <Image src={order.dress.imageUrl} alt={order.dress.name} fill className="object-cover" />
+                    <Image src={order.dress.imageUrl} alt={order.dress.name} fill sizes="64px" className="object-cover" />
                   </div>
                 ) : (
                   <div className="w-16 h-20 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 shrink-0">
