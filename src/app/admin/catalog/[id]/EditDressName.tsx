@@ -37,7 +37,7 @@ export default function EditDressName({ dressId, initialName }: { dressId: strin
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="font-bold text-gray-900 text-lg bg-white border border-gray-300 rounded px-2 py-0.5 focus:outline-none focus:ring-2 focus:ring-black w-40"
+          className="font-bold text-gray-900 text-lg bg-white border border-gray-300 rounded px-2 py-0.5 focus:outline-none focus:ring-2 focus:ring-black w-40 placeholder:text-gray-500"
           autoFocus
           onKeyDown={(e) => {
             if (e.key === 'Enter') handleUpdate();

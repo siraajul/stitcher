@@ -37,7 +37,7 @@ export default function EditCatalogName({ catalogId, initialName }: { catalogId:
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="text-3xl font-bold text-gray-900 bg-white border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black w-48"
+          className="text-3xl font-bold text-gray-900 bg-white border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black w-48 placeholder:text-gray-500"
           autoFocus
           onKeyDown={(e) => {
             if (e.key === 'Enter') handleUpdate();

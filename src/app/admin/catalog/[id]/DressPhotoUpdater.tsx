@@ -71,7 +71,7 @@ export default function DressPhotoUpdater({ dress }: Readonly<DressPhotoUpdaterP
         ref={fileInputRef}
         onChange={handleFileChange}
         accept="image/*"
-        className="hidden"
+        className="hidden text-gray-900 placeholder:text-gray-500"
       />
     </div>
   );

@@ -43,7 +43,7 @@ export default function TrackOrderPage() {
                 value={referenceId}
                 onChange={(e) => setReferenceId(e.target.value)}
                 placeholder="e.g. cmr0mxg..."
-                className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition-all outline-none font-mono text-sm"
+                className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition-all outline-none font-mono text-sm text-gray-900 placeholder:text-gray-500"
                 required
               />
             </div>

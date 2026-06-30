@@ -29,7 +29,7 @@ export default function AddDressForm({ catalogId }: { catalogId: string }) {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="New Dress Name..."
-        className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none"
+        className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none text-gray-900 placeholder:text-gray-500"
         disabled={loading}
       />
       <button

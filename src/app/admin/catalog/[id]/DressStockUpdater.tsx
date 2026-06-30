@@ -28,7 +28,7 @@ export default function DressStockUpdater({ dress }: { dress: any }) {
         type="number"
         value={stock}
         onChange={(e) => setStock(Number(e.target.value))}
-        className="w-24 border border-gray-300 rounded-md px-3 py-1.5 focus:ring-2 focus:ring-zinc-800 focus:outline-none"
+        className="w-24 border border-gray-300 rounded-md px-3 py-1.5 focus:ring-2 focus:ring-zinc-800 focus:outline-none text-gray-900 placeholder:text-gray-500"
       />
       <span className="text-gray-500 text-sm">meters</span>
       <button

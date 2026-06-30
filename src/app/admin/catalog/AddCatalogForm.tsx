@@ -56,7 +56,7 @@ export default function AddCatalogForm() {
                 required
                 value={catalogNumber}
                 onChange={(e) => setCatalogNumber(e.target.value)}
-                className="w-full border-2 border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:border-zinc-800 focus:ring-0 transition-colors focus:outline-none font-bold text-gray-900"
+                className="w-full border-2 border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:border-zinc-800 focus:ring-0 transition-colors focus:outline-none font-bold text-gray-900 placeholder:text-gray-500"
                 placeholder="e.g. 1001"
               />
             </div>
@@ -76,7 +76,7 @@ export default function AddCatalogForm() {
                 max="100"
                 value={dressesCount}
                 onChange={(e) => setDressesCount(Number(e.target.value))}
-                className="w-full border-2 border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:border-zinc-800 focus:ring-0 transition-colors focus:outline-none font-bold text-gray-900"
+                className="w-full border-2 border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:border-zinc-800 focus:ring-0 transition-colors focus:outline-none font-bold text-gray-900 placeholder:text-gray-500"
               />
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function AddCatalogForm() {
               type="url" 
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
-              className="w-full border-2 border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:border-zinc-800 focus:ring-0 transition-colors focus:outline-none font-bold text-gray-900"
+              className="w-full border-2 border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:border-zinc-800 focus:ring-0 transition-colors focus:outline-none font-bold text-gray-900 placeholder:text-gray-500"
               placeholder="https://images.unsplash.com/photo-..."
             />
           </div>

@@ -45,7 +45,7 @@ export default function DressPriceUpdater({ dress }: Readonly<DressPriceUpdaterP
           step="0.01"
           value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
-          className="w-24 pl-7 pr-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+          className="w-24 pl-7 pr-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none text-gray-900 placeholder:text-gray-500"
         />
       </div>
       <button 
