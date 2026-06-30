@@ -33,11 +33,11 @@ export default function MobileNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>) 
   const navItems = isAdminRoute ? adminNavItems : clientNavItems;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center pb-[env(safe-area-inset-bottom)] z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] overflow-x-auto">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center pb-[env(safe-area-inset-bottom)] z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] select-none">
       {navItems.map((item) => {
         if (item.href === '#logout') {
           return (
-            <form key={item.name} action={handleSignOut} className="flex flex-col items-center py-3 w-16 shrink-0 transition-colors text-red-400 hover:text-red-600">
+            <form key={item.name} action={handleSignOut} className="flex-1 flex flex-col items-center py-3 transition-colors text-red-400 active:text-red-600 md:hover:text-red-600">
               <button type="submit" className="flex flex-col items-center w-full">
                 <LogOut size={22} className="mb-1" />
                 <span className="text-[10px] font-bold leading-none">{item.name}</span>
@@ -57,8 +57,8 @@ export default function MobileNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>) 
           <Link
             key={item.name}
             href={item.href}
-            className={`flex flex-col items-center py-3 w-16 shrink-0 transition-colors ${
-              isActive ? 'text-zinc-900' : 'text-gray-400 hover:text-gray-600'
+            className={`flex-1 flex flex-col items-center py-3 transition-colors ${
+              isActive ? 'text-zinc-900' : 'text-gray-400 active:text-gray-600 md:hover:text-gray-600'
             }`}
           >
             <Icon size={22} className="mb-1" />
