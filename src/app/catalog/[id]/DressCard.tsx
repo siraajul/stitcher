@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import OrderModal from './OrderModal';
 import { Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function DressCard({ dress }: Readonly<{ dress: any }>) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,26 +23,32 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
   let cardBorderClass = 'border-gray-100';
   let stockTextColorClass = 'text-gray-900';
   if (isOutOfStock) {
-    cardBorderClass = 'border-red-100 opacity-75';
-    stockTextColorClass = 'text-red-500';
+    cardBorderClass = 'border-rose-100/50 opacity-75';
+    stockTextColorClass = 'text-rose-500';
   } else if (isLowStock) {
-    cardBorderClass = 'border-amber-200';
+    cardBorderClass = 'border-amber-200/50';
     stockTextColorClass = 'text-amber-500';
   }
 
   return (
     <>
-      <div className={`bg-white shadow-sm border ${cardBorderClass} md:hover:shadow-md transition-all duration-300 flex flex-col h-full`}>
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={`bg-white shadow-sm border ${cardBorderClass} md:hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300 flex flex-col h-full rounded-2xl overflow-hidden group`}
+      >
         
         {/* Image Area */}
-        <div className="relative w-full aspect-[4/5] bg-gray-50 border-b border-gray-100 flex items-center justify-center">
+        <div className="relative w-full aspect-[4/5] bg-zinc-50 border-b border-zinc-100/50 flex items-center justify-center overflow-hidden">
           {dress.imageUrl ? (
             <Image 
               src={dress.imageUrl} 
               alt={dress.name}
               fill
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-              className="object-cover"
+              className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             />
           ) : (
             <div className="text-gray-300 flex flex-col items-center">
@@ -51,8 +58,8 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
           )}
           
           {/* Price Badge */}
-          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 z-20">
-            <div className="bg-white text-black px-1.5 md:px-3 py-0.5 md:py-1 border border-gray-200 shadow-sm">
+          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 z-20 transition-transform duration-300 md:group-hover:-translate-y-1">
+            <div className="bg-white/90 backdrop-blur-md text-zinc-900 px-1.5 md:px-3 py-0.5 md:py-1 border border-white/50 shadow-sm rounded-lg">
               <span className="text-sm sm:text-base md:text-lg font-bold">৳{Number(dress.pricePerMeter).toFixed(2)}</span>
               <span className="text-[9px] sm:text-[10px] md:text-xs text-gray-500 ml-0.5 md:ml-1">/m</span>
             </div>
@@ -61,12 +68,12 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
           {/* Floating Badges */}
           <div className="absolute top-2 md:top-4 right-2 md:right-4 flex flex-col gap-1 md:gap-2">
             {isOutOfStock && (
-              <span className="bg-red-50 text-red-700 text-[9px] sm:text-[10px] md:text-xs font-bold px-1.5 md:px-2 py-0.5 md:py-1 border border-red-100 uppercase tracking-wider">
+              <span className="bg-rose-50 text-rose-600 text-[9px] sm:text-[10px] md:text-xs font-bold px-1.5 md:px-2 py-0.5 md:py-1 border border-rose-100 uppercase tracking-tight rounded-md">
                 Out of Stock
               </span>
             )}
             {isLowStock && (
-              <span className="bg-amber-50 text-amber-700 text-[9px] sm:text-[10px] md:text-xs font-bold px-1.5 md:px-2 py-0.5 md:py-1 border border-amber-100 uppercase tracking-wider">
+              <span className="bg-amber-50 text-amber-600 text-[9px] sm:text-[10px] md:text-xs font-bold px-1.5 md:px-2 py-0.5 md:py-1 border border-amber-100 uppercase tracking-tight rounded-md">
                 Low Stock
               </span>
             )}
@@ -97,20 +104,21 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
               )}
             </div>
           
-            <button 
+            <motion.button 
+              whileTap={!isOutOfStock ? { scale: 0.95 } : undefined}
               onClick={() => setIsModalOpen(true)}
               disabled={isOutOfStock}
-              className={`mt-3 md:mt-4 w-full py-2 md:py-2.5 font-bold uppercase tracking-wider text-[10px] sm:text-[11px] md:text-sm transition-colors ${
+              className={`mt-3 md:mt-4 w-full py-2 md:py-2.5 font-bold uppercase tracking-wider text-[10px] sm:text-[11px] md:text-sm transition-all rounded-xl ${
                 isOutOfStock 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                  : 'bg-black text-white active:bg-gray-800 md:hover:bg-gray-800'
+                  ? 'bg-zinc-100 text-zinc-400 cursor-not-allowed' 
+                  : 'bg-rose-700 text-white md:hover:bg-rose-800 md:hover:shadow-lg md:hover:shadow-rose-700/20'
               }`}
             >
               {isOutOfStock ? 'Sold Out' : 'Order Now'}
-            </button>
+            </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {isModalOpen && (
         <OrderModal dress={dress} onClose={() => setIsModalOpen(false)} />

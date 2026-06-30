@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { placeOrder } from '@/app/actions/order';
 import { X, CheckCircle2, Copy, Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 interface OrderModalProps {
   dress: any;
@@ -60,8 +61,17 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+    >
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ type: "spring", bounce: 0.4, duration: 0.6 }}
+        className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden"
+      >
         <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
           <h3 className="text-xl font-bold text-gray-900">
             {success ? 'Order Receipt' : `Order ${dress.name}`}
@@ -83,7 +93,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                 <p className="text-lg font-mono text-gray-900 break-all pr-10">{orderId}</p>
                 <button 
                   onClick={handleCopy}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg transition-colors"
+                  className="px-4 py-2 text-sm font-semibold text-gray-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-colors absolute right-4 top-1/2 -translate-y-1/2"
                   title="Copy Order ID"
                 >
                   {copied ? <CheckCircle2 size={20} className="text-emerald-500" /> : <Copy size={20} />}
@@ -94,12 +104,13 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                 Please save this reference ID. You may be asked for it when you call us to finalize your purchase.
               </p>
 
-              <button 
+              <motion.button 
+                whileTap={{ scale: 0.95 }}
                 onClick={onClose}
-                className="w-full bg-zinc-900 active:bg-black md:hover:bg-black text-white font-bold py-3.5 rounded-xl transition-colors shadow-md"
+                className="px-5 py-2 text-sm font-semibold text-white bg-rose-700 rounded-xl hover:bg-rose-800 disabled:bg-rose-300 flex items-center justify-center w-full transition-all shadow-md"
               >
                 Done
-              </button>
+              </motion.button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3.5">
@@ -145,7 +156,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                   max={dress.stockMeters}
                   value={meters}
                   onChange={(e) => setMeters(Number(e.target.value))}
-                  className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none"
+                  className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-600 focus:bg-white transition-all shadow-sm"
                   placeholder="How many meters?"
                 />
               </div>
@@ -159,7 +170,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none"
+                    className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition-all shadow-sm"
                     placeholder="John Doe"
                   />
                 </div>
@@ -172,7 +183,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none"
+                    className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition-all shadow-sm"
                     placeholder="017..."
                   />
                 </div>
@@ -186,7 +197,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                   rows={2}
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none resize-none"
+                  className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-600 focus:bg-white transition-all shadow-sm resize-none"
                   placeholder="Full address"
                 />
               </div>
@@ -197,7 +208,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                   id="paymentMode"
                   value={paymentMode}
                   onChange={(e) => setPaymentMode(e.target.value)}
-                  className="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-zinc-800 transition-colors focus:outline-none bg-white"
+                  className="w-full bg-zinc-50 border border-transparent rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition-all shadow-sm"
                 >
                   <option value="COD">Cash on Delivery (COD)</option>
                   <option value="MFS">bKash / Nagad / Others (MFS)</option>
@@ -213,7 +224,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                     required={paymentMode === 'MFS'}
                     value={mfsSenderNumber}
                     onChange={(e) => setMfsSenderNumber(e.target.value)}
-                    className="w-full border-2 border-amber-200 bg-amber-50 rounded-lg px-3 py-2 text-sm focus:ring-0 focus:border-amber-400 transition-colors focus:outline-none"
+                    className="w-full border border-amber-200 bg-amber-50 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all shadow-sm"
                     placeholder="Number you sent from"
                   />
                   <p className="text-[10px] text-amber-600 mt-1 font-medium leading-tight">Send money to our official number and enter your sender number.</p>
@@ -223,25 +234,27 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
               {error && <p className="text-red-600 text-xs font-medium bg-red-50 border border-red-100 p-2 rounded-lg">{error}</p>}
 
               <div className="pt-2 flex gap-3">
-                <button 
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
                   type="button"
                   onClick={onClose}
-                  className="flex-1 bg-white border-2 border-gray-200 active:bg-gray-50 md:hover:bg-gray-50 text-gray-800 font-bold py-2.5 rounded-lg transition-colors text-sm"
+                  className="flex-1 bg-white border border-gray-200 md:hover:bg-zinc-50 text-zinc-800 font-bold py-2.5 rounded-xl transition-all shadow-sm text-sm"
                 >
                   Cancel
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                whileTap={!(loading || Number(meters) > dress.stockMeters) ? { scale: 0.95 } : undefined}
                 type="submit"
                 disabled={loading || Number(meters) > dress.stockMeters}
-                className="flex-1 bg-black text-white px-3 py-2.5 font-bold uppercase tracking-wider text-xs active:bg-gray-800 md:hover:bg-gray-800 disabled:bg-gray-300 transition-colors rounded-lg"
+                className="flex-1 bg-rose-700 text-white px-3 py-2.5 font-bold uppercase tracking-wider text-xs md:hover:bg-rose-800 md:hover:shadow-md disabled:bg-rose-300 transition-all shadow-md rounded-xl"
               >
                 {loading ? 'Processing...' : 'Confirm'}
-              </button>
+              </motion.button>
               </div>
             </form>
           )}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

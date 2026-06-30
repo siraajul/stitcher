@@ -1,5 +1,7 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -27,16 +29,17 @@ export default function SearchForm() {
             }
           }}
           placeholder="Enter catalog number (e.g. 420)"
-          className="w-full bg-white text-gray-900 border-2 border-transparent shadow-lg rounded-full py-4 pl-6 pr-32 text-lg focus:outline-none focus:border-zinc-800 focus:ring-4 focus:ring-zinc-800/20 transition-all placeholder:text-gray-400"
+          className="w-full bg-white text-rose-950 border-2 border-transparent shadow-2xl shadow-rose-200/40 rounded-full py-4 pl-6 pr-32 text-lg focus:outline-none focus:border-rose-300 focus:ring-4 focus:ring-rose-100 transition-all placeholder:text-zinc-400"
           required
         />
-        <button
+        <motion.button
+          whileTap={{ scale: 0.95 }}
           type="button"
           onClick={handleSearch}
-          className="absolute right-2 top-2 bottom-2 bg-zinc-900 hover:bg-black text-white font-bold rounded-full px-6 transition-colors shadow-md hover:shadow-lg cursor-pointer"
+          className="absolute right-2 top-2 bottom-2 bg-rose-700 hover:bg-rose-800 text-white font-bold rounded-full px-6 transition-all shadow-md hover:shadow-lg cursor-pointer"
         >
           Search
-        </button>
+        </motion.button>
       </div>
     </div>
   );

@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, LayoutDashboard, Library, ShoppingCart, User, LogOut, Search } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const MotionLink = motion.create(Link);
 import { handleSignOut } from '@/app/actions/auth';
 
 export default function MobileNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>) {
@@ -33,15 +36,15 @@ export default function MobileNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>) 
   const navItems = isAdminRoute ? adminNavItems : clientNavItems;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center pb-[env(safe-area-inset-bottom)] z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] select-none">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-white/40 flex justify-around items-center pb-[env(safe-area-inset-bottom)] z-50 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] select-none">
       {navItems.map((item) => {
         if (item.href === '#logout') {
           return (
             <form key={item.name} action={handleSignOut} className="flex-1 flex flex-col items-center py-3 transition-colors text-red-400 active:text-red-600 md:hover:text-red-600">
-              <button type="submit" className="flex flex-col items-center w-full">
+              <motion.button whileTap={{ scale: 0.9 }} type="submit" className="flex flex-col items-center w-full">
                 <LogOut size={22} className="mb-1" />
                 <span className="text-[10px] font-bold leading-none">{item.name}</span>
-              </button>
+              </motion.button>
             </form>
           );
         }
@@ -54,16 +57,17 @@ export default function MobileNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>) 
         const Icon = item.icon;
         
         return (
-          <Link
+          <MotionLink
+            whileTap={{ scale: 0.9 }}
             key={item.name}
             href={item.href}
             className={`flex-1 flex flex-col items-center py-3 transition-colors ${
-              isActive ? 'text-zinc-900' : 'text-gray-400 active:text-gray-600 md:hover:text-gray-600'
+              isActive ? 'text-rose-700' : 'text-zinc-400 active:text-rose-600 md:hover:text-rose-600'
             }`}
           >
             <Icon size={22} className="mb-1" />
             <span className="text-[10px] font-bold leading-none">{item.name}</span>
-          </Link>
+          </MotionLink>
         );
       })}
     </div>
