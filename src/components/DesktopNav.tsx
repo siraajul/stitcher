@@ -15,9 +15,9 @@ export default function DesktopNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>)
   const adminNavItems = [
     { name: 'Storefront', href: '/', icon: Home },
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Manage Catalogs', href: '/admin/catalog', icon: LibrarySquare },
-    { name: 'Customer Orders', href: '/admin/orders', icon: ShoppingBag },
-    { name: 'Restock Requests', href: '/admin/requests', icon: ClipboardList },
+    { name: 'Catalogs', href: '/admin/catalog', icon: LibrarySquare },
+    { name: 'Orders', href: '/admin/orders', icon: ShoppingBag },
+    { name: 'Requests', href: '/admin/requests', icon: ClipboardList },
     { name: 'Logout', href: '#logout', icon: LogOut },
   ];
 
@@ -50,7 +50,7 @@ export default function DesktopNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>)
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all text-red-500 hover:text-red-700 hover:bg-red-50"
+                    className="flex items-center whitespace-nowrap gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all text-red-500 hover:text-red-700 hover:bg-red-50"
                   >
                     <LogOut size={16} className="text-red-500" />
                     {item.name}
@@ -70,7 +70,7 @@ export default function DesktopNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>)
                 whileTap={{ scale: 0.95 }}
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all ${
+                className={`flex items-center whitespace-nowrap gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all ${
                   isActive 
                     ? 'bg-rose-50 text-rose-700 shadow-sm ring-1 ring-rose-200/50' 
                     : 'text-zinc-500 hover:text-rose-700 hover:bg-rose-50/50'
