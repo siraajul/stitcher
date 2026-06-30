@@ -34,7 +34,9 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
         if (parsed.phone) setPhone(parsed.phone);
         if (parsed.address) setAddress(parsed.address);
       }
-    } catch(e) {}
+    } catch(e) {
+      console.error('Failed to parse saved customer details', e);
+    }
   }, []);
 
   const handleSubmit = async (e: any) => {
@@ -69,7 +71,9 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
           phone,
           address
         }));
-      } catch (e) {}
+      } catch (e) {
+        console.error('Failed to save customer details', e);
+      }
       
       // Save to localStorage for frictionless tracking
       try {
