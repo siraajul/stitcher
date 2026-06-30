@@ -1,10 +1,10 @@
 import SearchForm from './SearchForm';
-import { getAvailableDresses } from '@/app/actions/catalog';
+import { getFeaturedDresses } from '@/app/actions/catalog';
 import DressCard from '@/app/catalog/[id]/DressCard';
 import { ChevronDown, Search, Package, Zap } from 'lucide-react';
 
 export default async function Home() {
-  const availableDresses = await getAvailableDresses();
+  const featuredDresses = await getFeaturedDresses();
   return (
     <div className="flex flex-col">
       
@@ -55,17 +55,17 @@ export default async function Home() {
       </div>
 
       {/* Available Stocks Section */}
-      {availableDresses.length > 0 && (
+      {featuredDresses.length > 0 && (
         <section id="available-stock" className="w-full bg-zinc-50 py-16 border-t border-zinc-200/60">
           <div className="max-w-7xl mx-auto px-6">
             <div className="mb-12 border-b border-zinc-200/60 pb-4 text-center md:text-left">
               <h2 className="text-2xl font-black text-rose-950 tracking-tight uppercase">
-                Available In Stock
+                Explore Collection
               </h2>
             </div>
             
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
-              {availableDresses.map((dress) => (
+              {featuredDresses.map((dress) => (
                 <div key={dress.id} className="relative">
                   {/* Catalog Badge Overlay */}
                   <div className="absolute top-4 left-4 z-20">

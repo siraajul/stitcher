@@ -14,13 +14,8 @@ export async function getCatalogs() {
   });
 }
 
-export async function getAvailableDresses() {
+export async function getFeaturedDresses() {
   return await prisma.dress.findMany({
-    where: {
-      stockMeters: {
-        gt: 0,
-      },
-    },
     orderBy: {
       updatedAt: 'desc',
     },
