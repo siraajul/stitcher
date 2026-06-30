@@ -34,7 +34,7 @@ export default async function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col pb-[calc(64px+env(safe-area-inset-bottom))] md:pb-0 bg-gray-50">
+      <body className="font-sans min-h-full flex flex-col pb-[calc(64px+env(safe-area-inset-bottom))] md:pb-0 bg-zinc-50">
         <DesktopNav isAdmin={isAdmin} />
         <div className="flex-1 flex flex-col md:pt-24">
           {children}

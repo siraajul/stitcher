@@ -6,13 +6,14 @@ import { ChevronDown, Search, Package, Zap } from 'lucide-react';
 export default async function Home() {
   const availableDresses = await getAvailableDresses();
   return (
-    <div className="bg-white flex flex-col">
+    <div className="flex flex-col">
       
       {/* Hero Section */}
-      <div className="min-h-[calc(100vh-64px)] flex flex-col relative bg-white">
-        <main className="flex-1 flex flex-col items-center justify-center p-6 bg-gray-50/30">
-        <div className="text-center mb-12 max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight mb-6">
+      <div className="min-h-[100dvh] flex flex-col relative bg-zinc-50 overflow-hidden md:-mt-24">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-rose-200/60 via-zinc-50 to-zinc-50 pointer-events-none"></div>
+        <main className="flex-1 flex flex-col items-center justify-center p-6 md:pt-32 relative z-10">
+        <div className="text-center mb-12 max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-out">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-rose-950 tracking-tighter mb-6">
             Fabric Catalog
           </h1>
           <p className="text-lg text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
@@ -21,23 +22,23 @@ export default async function Home() {
           <SearchForm />
         </div>
 
-        <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 md:gap-8 text-center max-w-4xl mx-auto opacity-80 px-4 md:px-0">
+        <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 md:gap-8 text-center max-w-4xl mx-auto px-4 md:px-0 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 ease-out fill-mode-both">
           <div className="flex flex-col items-center">
-            <div className="mb-3 md:mb-4 bg-zinc-100 p-4 rounded-full text-zinc-900 shadow-sm border border-zinc-200">
+            <div className="mb-3 md:mb-4 bg-white p-4 rounded-full text-rose-700 shadow-xl shadow-rose-200/40 border border-rose-100 ring-4 ring-rose-50">
               <Search size={28} />
             </div>
             <h3 className="font-bold text-gray-900 mb-0.5 md:mb-1 text-sm md:text-base leading-tight">Quick Search</h3>
             <p className="text-xs md:text-sm text-gray-500 leading-tight max-w-[12rem]">Find any catalog instantly.</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="mb-3 md:mb-4 bg-zinc-100 p-4 rounded-full text-zinc-900 shadow-sm border border-zinc-200">
+            <div className="mb-3 md:mb-4 bg-white p-4 rounded-full text-rose-700 shadow-xl shadow-rose-200/40 border border-rose-100 ring-4 ring-rose-50">
               <Package size={28} />
             </div>
             <h3 className="font-bold text-gray-900 mb-0.5 md:mb-1 text-sm md:text-base leading-tight">Live Inventory</h3>
             <p className="text-xs md:text-sm text-gray-500 leading-tight max-w-[12rem]">See how many meters are in stock.</p>
           </div>
           <div className="flex flex-col items-center col-span-2 md:col-span-1 mt-2 md:mt-0">
-            <div className="mb-3 md:mb-4 bg-zinc-100 p-4 rounded-full text-zinc-900 shadow-sm border border-zinc-200">
+            <div className="mb-3 md:mb-4 bg-white p-4 rounded-full text-rose-700 shadow-xl shadow-rose-200/40 border border-rose-100 ring-4 ring-rose-50">
               <Zap size={28} />
             </div>
             <h3 className="font-bold text-gray-900 mb-0.5 md:mb-1 text-sm md:text-base leading-tight">Instant Orders</h3>
@@ -55,10 +56,10 @@ export default async function Home() {
 
       {/* Available Stocks Section */}
       {availableDresses.length > 0 && (
-        <section id="available-stock" className="w-full bg-white py-16 border-t border-gray-200">
+        <section id="available-stock" className="w-full bg-zinc-50 py-16 border-t border-zinc-200/60">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="mb-12 border-b border-gray-200 pb-4 text-center md:text-left">
-              <h2 className="text-2xl font-bold text-black tracking-tight uppercase">
+            <div className="mb-12 border-b border-zinc-200/60 pb-4 text-center md:text-left">
+              <h2 className="text-2xl font-black text-rose-950 tracking-tight uppercase">
                 Available In Stock
               </h2>
             </div>
