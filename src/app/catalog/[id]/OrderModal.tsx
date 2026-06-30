@@ -211,6 +211,8 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                   <label htmlFor="customerName" className="block text-xs font-semibold text-gray-700 mb-1">Your Name</label>
                   <input 
                     id="customerName"
+                    name="name"
+                    autoComplete="name"
                     type="text" 
                     required
                     value={customerName}
@@ -224,6 +226,8 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                   <label htmlFor="phone" className="block text-xs font-semibold text-gray-700 mb-1">Phone</label>
                   <input 
                     id="phone"
+                    name="tel"
+                    autoComplete="tel"
                     type="tel" 
                     required
                     value={phone}
@@ -238,6 +242,8 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                 <label htmlFor="address" className="block text-xs font-semibold text-gray-700 mb-1">Delivery Address</label>
                 <textarea 
                   id="address"
+                  name="address"
+                  autoComplete="street-address"
                   required
                   rows={2}
                   value={address}
