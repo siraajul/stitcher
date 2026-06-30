@@ -107,6 +107,7 @@ export default async function AdminOrderDetailPage({ params }: Readonly<{ params
                   src={order.dress.imageUrl} 
                   alt={order.dress.name} 
                   fill 
+                  sizes="(max-width: 640px) 100vw, 192px"
                   className="object-cover"
                 />
               ) : (
