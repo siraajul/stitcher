@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { placeOrder } from '@/app/actions/order';
-import { initiatePhoneVerification, getPhoneVerificationStatus } from '@/app/actions/verification';
 import { X, CheckCircle2, Copy, Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -25,9 +24,6 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
   const [paymentMode, setPaymentMode] = useState('COD');
   const [mfsSenderNumber, setMfsSenderNumber] = useState('');
 
-  const [verificationPending, setVerificationPending] = useState(false);
-  const [otpCode, setOtpCode] = useState<string | null>(null);
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!meters || meters <= 0) return;
@@ -39,40 +35,6 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
     setLoading(true);
     setError('');
 
-    // Phone Verification Check
-    const verificationRes = await initiatePhoneVerification(phone);
-    if (!verificationRes.success) {
-       setError(verificationRes.error || 'Verification failed');
-       setLoading(false);
-       return;
-    }
-
-    if (!verificationRes.verified && verificationRes.otpCode) {
-       setOtpCode(verificationRes.otpCode);
-       setVerificationPending(true);
-       setLoading(false);
-       
-       // Start polling
-       const interval = setInterval(async () => {
-         const status = await getPhoneVerificationStatus(phone);
-         if (status.isVerified) {
-            clearInterval(interval);
-            setVerificationPending(false);
-            setOtpCode(null);
-            await submitFinalOrder();
-         }
-       }, 2000);
-       
-       // Stop polling after 15 minutes to avoid memory leaks
-       setTimeout(() => clearInterval(interval), 15 * 60 * 1000);
-       return;
-    }
-
-    await submitFinalOrder();
-  };
-
-  const submitFinalOrder = async () => {
-    setLoading(true);
     const res = await placeOrder({
       dressId: dress.id,
       customerName,
@@ -120,36 +82,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
         </div>
         
         <div className="p-6">
-          {verificationPending ? (
-            <div className="text-center py-6 px-4 animate-in fade-in zoom-in duration-500">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 size={32} className="text-blue-500 animate-pulse" />
-              </div>
-              <h4 className="text-2xl font-bold text-gray-900 mb-2">Verify Your Number</h4>
-              <p className="text-gray-500 text-sm mb-6">
-                To prevent spam, please verify your phone number via Telegram. This is a one-time process.
-              </p>
-              
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 mb-6">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Your Verification Code</p>
-                <p className="text-3xl font-mono font-black text-gray-900 tracking-widest">{otpCode}</p>
-              </div>
-
-              <a 
-                href={`https://t.me/sticher_bot?start=${otpCode}`}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full flex items-center justify-center py-3.5 bg-[#2AABEE] text-white font-bold rounded-xl hover:bg-[#229ED9] hover:shadow-lg hover:shadow-blue-200 transition-all"
-              >
-                Open Telegram to Verify
-              </a>
-              
-              <p className="text-xs text-gray-400 mt-6 flex items-center justify-center gap-2">
-                <span className="w-3 h-3 rounded-full border-2 border-gray-400 border-t-gray-600 animate-spin"></span>
-                Waiting for verification...
-              </p>
-            </div>
-          ) : success ? (
+          {success ? (
             <div className="text-center py-4">
               <CheckCircle2 size={64} className="mx-auto mb-4 text-emerald-500" />
               <h4 className="text-2xl font-bold text-gray-900 mb-2">Order Pending</h4>
