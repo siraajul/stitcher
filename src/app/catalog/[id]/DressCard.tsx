@@ -83,7 +83,7 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
         <div className="p-3 md:p-5 flex-1 flex flex-col bg-white">
           <div className="mb-2 md:mb-4">
             <h3 className="text-sm sm:text-base md:text-lg font-bold text-black mb-0.5 md:mb-1 truncate">{dress.name}</h3>
-            <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-500">REF: {dress.id.substring(0, 8)}</p>
+            <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-500">REF: {dress.id.slice(-8)}</p>
           </div>
           
           <div className="mt-auto pt-2 md:pt-4 border-t border-gray-100">
@@ -105,7 +105,7 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
             </div>
           
             <motion.button 
-              whileTap={!isOutOfStock ? { scale: 0.95 } : undefined}
+              whileTap={isOutOfStock ? undefined : { scale: 0.95 }}
               onClick={() => setIsModalOpen(true)}
               disabled={isOutOfStock}
               className={`mt-3 md:mt-4 w-full py-2 md:py-2.5 font-bold uppercase tracking-wider text-[10px] sm:text-[11px] md:text-sm transition-all rounded-xl ${

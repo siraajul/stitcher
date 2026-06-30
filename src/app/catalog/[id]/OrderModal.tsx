@@ -243,7 +243,7 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                   Cancel
                 </motion.button>
                 <motion.button
-                whileTap={!(loading || Number(meters) > dress.stockMeters) ? { scale: 0.95 } : undefined}
+                whileTap={(loading || Number(meters) > dress.stockMeters) ? undefined : { scale: 0.95 }}
                 type="submit"
                 disabled={loading || Number(meters) > dress.stockMeters}
                 className="flex-1 bg-rose-700 text-white px-3 py-2.5 font-bold uppercase tracking-wider text-xs md:hover:bg-rose-800 md:hover:shadow-md disabled:bg-rose-300 transition-all shadow-md rounded-xl"
