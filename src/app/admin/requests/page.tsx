@@ -102,7 +102,8 @@ export default async function RequestsPage() {
         
         {reviewedRequests.length > 0 && (
           <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden opacity-75">
-            <div className="overflow-x-auto">
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-100">
                 <thead className="bg-gray-50/50">
                   <tr>
@@ -133,6 +134,27 @@ export default async function RequestsPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+            {/* Mobile Cards */}
+            <div className="md:hidden grid gap-3 p-3 bg-gray-50/50">
+              {reviewedRequests.map((request: any) => (
+                <div key={request.id} className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <div className="text-sm font-bold text-gray-900">{request.customerName}</div>
+                      <div className="text-xs text-gray-500 font-mono">{request.phoneNumber}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-black text-gray-900">{request.requestedMeters}m</div>
+                      <div className="text-[10px] text-gray-400 mt-0.5">{new Date(request.createdAt).toLocaleDateString()}</div>
+                    </div>
+                  </div>
+                  <div className="pt-3 border-t border-gray-50">
+                    <div className="text-sm font-medium text-gray-800">{request.dress.name}</div>
+                    <div className="text-xs text-gray-500 mt-0.5">Cat: {request.dress.catalog.catalogNumber}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
