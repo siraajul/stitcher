@@ -50,7 +50,13 @@ export default function SearchForm() {
 
   const handleSearch = () => {
     if (query.trim()) {
-      router.push(`/catalog/${query.trim()}`);
+      if (results.catalogs.length > 0) {
+        router.push(`/catalog/${results.catalogs[0].catalogNumber}`);
+      } else if (results.dresses.length > 0) {
+        router.push(`/catalog/${results.dresses[0].catalog.catalogNumber}?reorder=${results.dresses[0].id}`);
+      } else {
+        router.push(`/catalog/${query.trim()}`);
+      }
       setIsFocused(false);
     }
   };

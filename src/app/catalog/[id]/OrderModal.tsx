@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { placeOrder } from '@/app/actions/order';
 import { X, CheckCircle2, Copy, Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -24,6 +24,18 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
   const [address, setAddress] = useState('');
   const [paymentMode, setPaymentMode] = useState('COD');
   const [mfsSenderNumber, setMfsSenderNumber] = useState('');
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('stitcher_customer_details');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.customerName) setCustomerName(parsed.customerName);
+        if (parsed.phone) setPhone(parsed.phone);
+        if (parsed.address) setAddress(parsed.address);
+      }
+    } catch(e) {}
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -49,6 +61,15 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
     if (res.success && res.order) {
       setOrderId(res.order.id);
       setSuccess(true);
+      
+      // Save customer details for auto-fill on next order
+      try {
+        localStorage.setItem('stitcher_customer_details', JSON.stringify({
+          customerName,
+          phone,
+          address
+        }));
+      } catch (e) {}
       
       // Save to localStorage for frictionless tracking
       try {
