@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import MobileNav from "@/components/MobileNav";
 import DesktopNav from "@/components/DesktopNav";
+import PWARegister from "@/components/PWARegister";
 import { auth } from "@/auth";
 
 const geistSans = Geist({
@@ -50,6 +51,7 @@ export default async function RootLayout({
           {children}
         </div>
         <MobileNav isAdmin={isAdmin} />
+        <PWARegister />
       </body>
     </html>
   );
