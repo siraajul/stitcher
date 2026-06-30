@@ -2,7 +2,7 @@ import { trackOrderById } from '@/app/actions/order';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, CheckCircle2, Clock, XCircle, Package, Truck, Image as ImageIcon } from 'lucide-react';
-import { notFound } from 'next/navigation';
+
 
 export default async function TrackOrderDetailsPage({ params }: Readonly<{ params: Promise<{ id: string }> }>) {
   const resolvedParams = await params;
@@ -46,7 +46,7 @@ export default async function TrackOrderDetailsPage({ params }: Readonly<{ param
   const StatusIcon = statusInfo.icon;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 md:pb-0 pt-6">
+    <div className="min-h-screen bg-zinc-50 pb-20 md:pb-0 pt-6 md:pt-32 md:-mt-24">
       <div className="max-w-2xl mx-auto px-4">
         <Link href="/track" className="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-black mb-6 transition-colors">
           <ArrowLeft size={16} className="mr-1" /> Back to Search

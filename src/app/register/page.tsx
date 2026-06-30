@@ -24,7 +24,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-50 p-6 md:-mt-24">
       <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">Create an Account</h1>
         

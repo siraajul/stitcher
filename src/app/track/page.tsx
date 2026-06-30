@@ -15,7 +15,7 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 md:-mt-24">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
         <div className="flex justify-center mb-6">
           <div className="bg-black text-white p-4 rounded-2xl shadow-lg">
