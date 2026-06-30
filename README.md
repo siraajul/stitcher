@@ -2,6 +2,9 @@
 
 A premium fashion catalog and ordering platform built with Next.js, Prisma, NextAuth, and Neon PostgreSQL.
 
+🌍 **Live Production Link:** [https://stitcher-inky.vercel.app](https://stitcher-inky.vercel.app)
+🤖 **Telegram Order Bot:** [https://t.me/stitcherorderbot](https://t.me/stitcherorderbot)
+
 ## Features
 - Real-time catalog and inventory tracking
 - Secure ordering pipeline (Pending -> Approved -> In Transit -> Delivered)
