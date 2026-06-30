@@ -12,7 +12,7 @@ export default async function Home() {
       <div className="min-h-[calc(100vh-64px)] flex flex-col relative bg-white">
         <main className="flex-1 flex flex-col items-center justify-center p-6 bg-gray-50/30">
         <div className="text-center mb-12 max-w-2xl">
-          <h1 className="text-4xl md:text-6xl font-bold text-black tracking-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight mb-6">
             Fabric Catalog
           </h1>
           <p className="text-lg text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
@@ -21,7 +21,7 @@ export default async function Home() {
           <SearchForm />
         </div>
 
-        <div className="mt-8 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 text-center max-w-4xl mx-auto opacity-80 px-4 md:px-0">
+        <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 md:gap-8 text-center max-w-4xl mx-auto opacity-80 px-4 md:px-0">
           <div className="flex flex-col items-center">
             <div className="mb-3 md:mb-4 bg-zinc-100 p-4 rounded-full text-zinc-900 shadow-sm border border-zinc-200">
               <Search size={28} />
@@ -63,7 +63,7 @@ export default async function Home() {
               </h2>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
               {availableDresses.map((dress) => (
                 <div key={dress.id} className="relative">
                   {/* Catalog Badge Overlay */}
