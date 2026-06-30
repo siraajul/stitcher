@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { placeStockRequest } from '@/app/actions/stock-request';
 import { X, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,6 +15,22 @@ export default function StockRequestModal({ dress, onClose }: Readonly<{ dress: 
     phoneNumber: '',
     requestedMeters: ''
   });
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('stitcher_customer_details');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setFormData(prev => ({
+          ...prev,
+          customerName: parsed.customerName || prev.customerName,
+          phoneNumber: parsed.phone || prev.phoneNumber
+        }));
+      }
+    } catch(e) {
+      console.error('Failed to parse saved customer details', e);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +53,18 @@ export default function StockRequestModal({ dress, onClose }: Readonly<{ dress: 
 
     if (result.success) {
       setIsSuccess(true);
+      
+      try {
+        const existing = JSON.parse(localStorage.getItem('stitcher_customer_details') || '{}');
+        localStorage.setItem('stitcher_customer_details', JSON.stringify({
+          ...existing,
+          customerName: formData.customerName,
+          phone: formData.phoneNumber
+        }));
+      } catch (e) {
+        console.error('Failed to save customer details', e);
+      }
+
       setTimeout(() => {
         onClose();
       }, 3000);
