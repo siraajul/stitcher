@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import MobileNav from "@/components/MobileNav";
 import DesktopNav from "@/components/DesktopNav";
+import GlobalBackButton from "@/components/GlobalBackButton";
 import { auth } from "@/auth";
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default async function RootLayout({
     >
       <body className="font-sans min-h-full flex flex-col pb-[calc(64px+env(safe-area-inset-bottom))] md:pb-0 bg-zinc-50">
         <DesktopNav isAdmin={isAdmin} />
+        <GlobalBackButton />
         <div className="flex-1 flex flex-col md:pt-24">
           {children}
         </div>
