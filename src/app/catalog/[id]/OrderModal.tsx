@@ -5,6 +5,7 @@ import { placeOrder } from '@/app/actions/order';
 import { X, CheckCircle2, Copy, Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface OrderModalProps {
   dress: any;
@@ -48,6 +49,19 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
     if (res.success && res.order) {
       setOrderId(res.order.id);
       setSuccess(true);
+      
+      // Save to localStorage for frictionless tracking
+      try {
+        const existing = JSON.parse(localStorage.getItem('stitcher_orders') || '[]');
+        existing.unshift({
+          id: res.order.id,
+          name: dress.name,
+          date: new Date().toISOString()
+        });
+        localStorage.setItem('stitcher_orders', JSON.stringify(existing.slice(0, 10))); // keep last 10
+      } catch (e) {
+        console.error('Failed to save order to localStorage', e);
+      }
     } else {
       setError(res.error || 'Failed to place order');
     }
@@ -104,13 +118,23 @@ export default function OrderModal({ dress, onClose }: Readonly<OrderModalProps>
                 Please save this reference ID. You may be asked for it when you call us to finalize your purchase.
               </p>
 
-              <motion.button 
-                whileTap={{ scale: 0.95 }}
-                onClick={onClose}
-                className="px-5 py-2 text-sm font-semibold text-white bg-rose-700 rounded-xl hover:bg-rose-800 disabled:bg-rose-300 flex items-center justify-center w-full transition-all shadow-md"
-              >
-                Done
-              </motion.button>
+              <div className="flex flex-col gap-3">
+                <Link href={`/track/${orderId}`}>
+                  <motion.button 
+                    whileTap={{ scale: 0.95 }}
+                    className="px-5 py-3 text-sm font-semibold text-white bg-zinc-900 rounded-xl hover:bg-black flex items-center justify-center w-full transition-all shadow-md"
+                  >
+                    Track Order Now
+                  </motion.button>
+                </Link>
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
+                  onClick={onClose}
+                  className="px-5 py-3 text-sm font-semibold text-zinc-900 bg-zinc-100 rounded-xl hover:bg-zinc-200 flex items-center justify-center w-full transition-all"
+                >
+                  Close
+                </motion.button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3.5">

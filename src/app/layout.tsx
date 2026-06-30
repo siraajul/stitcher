@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import MobileNav from "@/components/MobileNav";
@@ -16,10 +16,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#000000",
+};
+
 export const metadata: Metadata = {
   title: "Stitcher | Premium Fashion Catalog",
   description: "Explore our exclusive collection of premium dresses and fashion items. Stitcher offers the finest quality clothing with seamless ordering.",
   keywords: ["fashion", "catalog", "clothing", "dresses", "stitcher", "premium fashion"],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Stitcher",
+  },
 };
 
 export default async function RootLayout({
@@ -42,6 +52,20 @@ export default async function RootLayout({
           {children}
         </div>
         <MobileNav isAdmin={isAdmin} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').then(
+                    function(registration) { console.log('ServiceWorker registration successful'); },
+                    function(err) { console.log('ServiceWorker registration failed: ', err); }
+                  );
+                });
+              }
+            `
+          }}
+        />
       </body>
     </html>
   );

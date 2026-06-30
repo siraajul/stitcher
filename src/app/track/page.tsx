@@ -1,12 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Package, ArrowRight } from 'lucide-react';
+import { Search, Package, ArrowRight, History, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function TrackOrderPage() {
   const [referenceId, setReferenceId] = useState('');
+  const [recentOrders, setRecentOrders] = useState<any[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    try {
+      const orders = JSON.parse(localStorage.getItem('stitcher_orders') || '[]');
+      setRecentOrders(orders);
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,8 +26,8 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 md:-mt-24">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
+    <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center p-4 md:-mt-24">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 border border-gray-100 mb-6">
         <div className="flex justify-center mb-6">
           <div className="bg-black text-white p-4 rounded-2xl shadow-lg">
             <Package size={32} />
@@ -59,6 +70,33 @@ export default function TrackOrderPage() {
           </button>
         </form>
       </div>
+
+      {recentOrders.length > 0 && (
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-md p-6 border border-gray-100">
+          <div className="flex items-center gap-2 mb-4">
+            <History size={18} className="text-gray-400" />
+            <h2 className="font-bold text-gray-900">Recent Orders</h2>
+          </div>
+          <div className="space-y-2">
+            {recentOrders.map((order, i) => (
+              <Link 
+                key={order.id + i} 
+                href={`/track/${order.id}`}
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all group"
+              >
+                <div>
+                  <p className="font-bold text-gray-900 text-sm">{order.name}</p>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-xs font-mono text-gray-500">{order.id}</span>
+                    <span className="text-[10px] text-gray-400">• {new Date(order.date).toLocaleDateString()}</span>
+                  </div>
+                </div>
+                <ChevronRight size={16} className="text-gray-300 group-hover:text-gray-600 transition-colors" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
