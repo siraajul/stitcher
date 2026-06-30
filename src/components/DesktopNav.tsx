@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { handleSignOut } from '@/app/actions/auth';
-import { Home, LayoutDashboard, Library, ShoppingCart, User, LogOut, Search } from 'lucide-react';
+import { Home, LayoutDashboard, Library, ShoppingCart, User, LogOut, Search, LibrarySquare, ShoppingBag, ClipboardList } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const MotionLink = motion.create(Link);
@@ -15,8 +15,9 @@ export default function DesktopNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>)
   const adminNavItems = [
     { name: 'Storefront', href: '/', icon: Home },
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Catalogs', href: '/admin/catalog', icon: Library },
-    { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
+    { name: 'Manage Catalogs', href: '/admin/catalog', icon: LibrarySquare },
+    { name: 'Customer Orders', href: '/admin/orders', icon: ShoppingBag },
+    { name: 'Restock Requests', href: '/admin/requests', icon: ClipboardList },
     { name: 'Logout', href: '#logout', icon: LogOut },
   ];
 

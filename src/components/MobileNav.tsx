@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutDashboard, Library, ShoppingCart, User, LogOut, Search } from 'lucide-react';
+import { Home, Library, ShoppingCart, User, Search, LayoutDashboard, ShoppingBag, LogOut, LibrarySquare, ClipboardList } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const MotionLink = motion.create(Link);
@@ -16,8 +16,9 @@ export default function MobileNav({ isAdmin }: Readonly<{ isAdmin?: boolean }>) 
   const adminNavItems = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Catalogs', href: '/admin/catalog', icon: Library },
-    { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
+    { name: 'Catalogs', href: '/admin/catalog', icon: LibrarySquare },
+    { name: 'Orders', href: '/admin/orders', icon: ShoppingBag },
+    { name: 'Requests', href: '/admin/requests', icon: ClipboardList },
     { name: 'Logout', href: '#logout', icon: LogOut },
   ];
 
