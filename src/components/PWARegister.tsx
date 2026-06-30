@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 export default function PWARegister() {
   useEffect(() => {
-    if (typeof globalThis.window !== 'undefined' && 'serviceWorker' in navigator) {
+    if (globalThis.window !== undefined && 'serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
         .then((registration) => {
