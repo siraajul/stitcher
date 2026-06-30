@@ -29,6 +29,21 @@ model Dress {
 
   catalog       Catalog  @relation(fields: [catalogId], references: [id], onDelete: Cascade)
   orders        Order[]
+  stockRequests StockRequest[]
+}
+
+model StockRequest {
+  id            String   @id @default(cuid())
+  customerName  String
+  phoneNumber   String
+  requestedMeters Float
+  status        String   @default("PENDING") // PENDING, REVIEWED
+  dressId       String
+  createdAt     DateTime @default(now())
+
+  dress         Dress    @relation(fields: [dressId], references: [id], onDelete: Cascade)
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 }
 
 model Order {
@@ -60,6 +75,7 @@ model User {
   image         String?
   role          String    @default("CLIENT") // "ADMIN" or "CLIENT"
   orders        Order[]
+  stockRequests StockRequest[]
   accounts      Account[]
   sessions      Session[]
 }

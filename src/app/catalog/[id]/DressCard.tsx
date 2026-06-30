@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import OrderModal from './OrderModal';
+import StockRequestModal from './StockRequestModal';
 import { Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function DressCard({ dress }: Readonly<{ dress: any }>) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const searchParams = useSearchParams();
   
   const isOutOfStock = dress.stockMeters <= 0;
@@ -16,15 +18,15 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
 
   useEffect(() => {
     if (searchParams?.get('reorder') === dress.id && !isOutOfStock) {
-      setIsModalOpen(true);
+      setIsOrderModalOpen(true);
     }
   }, [searchParams, dress.id, isOutOfStock]);
 
   let cardBorderClass = 'border-gray-100';
   let stockTextColorClass = 'text-gray-900';
   if (isOutOfStock) {
-    cardBorderClass = 'border-rose-100/50 opacity-75';
-    stockTextColorClass = 'text-rose-500';
+    cardBorderClass = 'border-gray-300 grayscale opacity-60';
+    stockTextColorClass = 'text-gray-500';
   } else if (isLowStock) {
     cardBorderClass = 'border-amber-200/50';
     stockTextColorClass = 'text-amber-500';
@@ -105,23 +107,26 @@ export default function DressCard({ dress }: Readonly<{ dress: any }>) {
             </div>
           
             <motion.button 
-              whileTap={isOutOfStock ? undefined : { scale: 0.95 }}
-              onClick={() => setIsModalOpen(true)}
-              disabled={isOutOfStock}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => isOutOfStock ? setIsRequestModalOpen(true) : setIsOrderModalOpen(true)}
               className={`mt-3 md:mt-4 w-full py-2 md:py-2.5 font-bold uppercase tracking-wider text-[10px] sm:text-[11px] md:text-sm transition-all rounded-xl ${
                 isOutOfStock 
-                  ? 'bg-zinc-100 text-zinc-400 cursor-not-allowed' 
+                  ? 'bg-zinc-100 text-zinc-500 hover:bg-zinc-200' 
                   : 'bg-rose-700 text-white md:hover:bg-rose-800 md:hover:shadow-lg md:hover:shadow-rose-700/20'
               }`}
             >
-              {isOutOfStock ? 'Sold Out' : 'Order Now'}
+              {isOutOfStock ? 'Request Restock' : 'Order Now'}
             </motion.button>
           </div>
         </div>
       </motion.div>
 
-      {isModalOpen && (
-        <OrderModal dress={dress} onClose={() => setIsModalOpen(false)} />
+      {isOrderModalOpen && (
+        <OrderModal dress={dress} onClose={() => setIsOrderModalOpen(false)} />
+      )}
+
+      {isRequestModalOpen && (
+        <StockRequestModal dress={dress} onClose={() => setIsRequestModalOpen(false)} />
       )}
     </>
   );
