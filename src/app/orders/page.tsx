@@ -24,7 +24,7 @@ export default async function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="w-full px-6 pt-8 pb-4 max-w-4xl mx-auto">
+      <div className="w-full px-4 sm:px-6 pt-6 sm:pt-8 pb-4 max-w-4xl mx-auto">
         <h1 className="text-3xl font-black text-gray-900 tracking-tight">My Orders</h1>
       </div>
 
@@ -40,11 +40,11 @@ export default async function OrdersPage() {
         ) : (
           <div className="space-y-4">
             {orders.map((order) => (
-              <div key={order.id} className="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row gap-4 justify-between">
+              <div key={order.id} className="bg-white p-4 sm:p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row gap-4 justify-between">
                 <div className="flex gap-4 flex-1">
                   {order.dress.imageUrl ? (
                     <div className="relative w-20 h-28 sm:w-24 sm:h-32 rounded-xl overflow-hidden bg-gray-100 shrink-0 border border-gray-100">
-                      <Image src={order.dress.imageUrl} alt={order.dress.name} fill className="object-cover" />
+                      <Image src={order.dress.imageUrl} alt={order.dress.name} fill sizes="(max-width: 640px) 100px, 120px" className="object-cover" />
                     </div>
                   ) : (
                     <div className="w-20 h-28 sm:w-24 sm:h-32 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 shrink-0 border border-gray-100">
